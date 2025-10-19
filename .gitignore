@@ -44,3 +44,8 @@ next-env.d.ts
 # logs
 dev-server.log
 *.log
+
+# deployment tokens (SECURITY - NEVER COMMIT)
+.deploy-tokens
+*tokens*
+*.secret
