@@ -46,7 +46,14 @@ export function LoginForm() {
     setIsLoading(true);
 
     try {
+      console.log('[DEBUG] Login attempt:', { username: data.username });
+      console.log('[DEBUG] Expected credentials from env:', {
+        username: process.env.NEXT_PUBLIC_ADMIN_USERNAME || 'admin',
+        password: process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'admin123'
+      });
+
       const success = login(data.username, data.password);
+      console.log('[DEBUG] Login result:', success);
 
       if (success) {
         toast.success('Login realizado com sucesso!', {
