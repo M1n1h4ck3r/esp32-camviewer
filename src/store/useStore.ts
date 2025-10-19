@@ -68,6 +68,16 @@ export const useStore = create<AppState>()(
       // Real authentication logic
       login: (username, password) => {
         // MVP: Check against hardcoded admin credentials
+        console.log('[STORE DEBUG] Login attempt:', { username, password });
+        console.log('[STORE DEBUG] Expected:', {
+          expectedUser: DEFAULT_ADMIN.USERNAME,
+          expectedPass: DEFAULT_ADMIN.PASSWORD
+        });
+        console.log('[STORE DEBUG] Match:', {
+          userMatch: username === DEFAULT_ADMIN.USERNAME,
+          passMatch: password === DEFAULT_ADMIN.PASSWORD
+        });
+
         if (username === DEFAULT_ADMIN.USERNAME && password === DEFAULT_ADMIN.PASSWORD) {
           set({
             isAuthenticated: true,

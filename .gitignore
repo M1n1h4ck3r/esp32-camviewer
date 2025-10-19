@@ -49,3 +49,5 @@ dev-server.log
 .deploy-tokens
 *tokens*
 *.secret
+
+.vercel
