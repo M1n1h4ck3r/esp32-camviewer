@@ -3,7 +3,7 @@
 // ESP32 CamViewer - Dashboard Page
 // Generated: 2025-10-19
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useStore } from '@/store/useStore';
 import { Camera, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,6 +12,7 @@ import { AddCameraDialog } from '@/components/camera/AddCameraDialog';
 import { EditCameraDialog } from '@/components/camera/EditCameraDialog';
 import { DeleteCameraDialog } from '@/components/camera/DeleteCameraDialog';
 import { FullscreenCamera } from '@/components/camera/FullscreenCamera';
+import { NetworkSetupHelp } from '@/components/NetworkSetupHelp';
 import type { Camera as CameraType } from '@/types';
 
 export default function DashboardPage() {
@@ -21,6 +22,13 @@ export default function DashboardPage() {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [fullscreenOpen, setFullscreenOpen] = useState(false);
   const [selectedCamera, setSelectedCamera] = useState<CameraType | null>(null);
+
+  // Check if we're in production (Vercel)
+  const isProduction = useMemo(() => {
+    return typeof window !== 'undefined' &&
+           (window.location.hostname.includes('vercel.app') ||
+            window.location.hostname.includes('.app'));
+  }, []);
 
   const handleExpand = (camera: CameraType) => {
     setSelectedCamera(camera);
@@ -56,6 +64,11 @@ export default function DashboardPage() {
             Adicionar Câmera
           </Button>
         </div>
+
+        {/* Network Setup Help (Production) */}
+        {isProduction && cameras.length > 0 && (
+          <NetworkSetupHelp isProduction={isProduction} hasOfflineCameras={true} />
+        )}
 
         {/* Camera Grid or Empty State */}
         {cameras.length === 0 ? (

@@ -247,7 +247,26 @@ See [PERFORMANCE.md](./PERFORMANCE.md) for detailed optimization guide.
 
 ## 🚢 Deployment
 
+### ⚠️ Important: ESP32-CAM Network Configuration
+
+**ESP32-CAM devices must be accessible from the internet for production deployment to work.**
+
+When you deploy to Vercel (or any cloud platform):
+- ✅ **Localhost works**: Your browser can access local network cameras (192.168.x.x)
+- ❌ **Production doesn't work**: Vercel servers cannot access your private network
+
+**Solutions:**
+1. **Port Forwarding** (Recommended) - Configure your router to expose ESP32-CAM
+2. **Cloudflare Tunnel** - No port forwarding needed, HTTPS included
+3. **DynDNS/No-IP** - For dynamic IP addresses
+
+📖 **See [NETWORK_ACCESS.md](./NETWORK_ACCESS.md) for complete network setup guide** with step-by-step instructions for all solutions.
+
+---
+
 ### Vercel (Recommended)
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/M1n1h4ck3r/esp32-camviewer)
 
 ```bash
 # Install Vercel CLI
@@ -258,6 +277,13 @@ vercel --prod
 ```
 
 Or connect your GitHub repo at [vercel.com](https://vercel.com).
+
+**Important:** Set environment variables in Vercel Dashboard:
+- `NEXT_PUBLIC_ADMIN_USERNAME`
+- `NEXT_PUBLIC_ADMIN_PASSWORD`
+- `NEXT_PUBLIC_DEFAULT_PRIVACY_PASSWORD`
+
+📖 See [VERCEL_DEPLOY.md](./VERCEL_DEPLOY.md) for complete Vercel deployment guide.
 
 ### Docker
 
